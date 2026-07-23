@@ -46,15 +46,37 @@ class dummyServices {
   static CommentModel randomComment() {
     final id = DateTime.now().millisecondsSinceEpoch;
 
-    final parentIds = [null, 1, 2, 3, 4, 5];
+    final authors = [
+      "Ankit",
+      "Rahul",
+      "Priya",
+      "Neha",
+      "Amit",
+      "Rohit",
+      "Karan",
+    ];
 
+    final messages = [
+      "Nice post!",
+      "Thanks for sharing.",
+      "I totally agree.",
+      "Interesting point.",
+      "Can you explain more?",
+      "Awesome!",
+      "Very helpful.",
+    ];
+
+    final parentIds = <int?>[null, 1, 2, 3, 4, 5];
+
+    authors.shuffle();
+    messages.shuffle();
     parentIds.shuffle();
 
     return CommentModel(
       id: id,
       parentId: parentIds.first,
-      author: "Ankit",
-      message: "New Comment $id",
+      author: authors.first,
+      message: messages.first,
       createdAt: DateTime.now(),
     );
   }
