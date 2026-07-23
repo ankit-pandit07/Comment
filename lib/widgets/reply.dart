@@ -14,40 +14,35 @@ class ReplyBox extends StatefulWidget {
 
 class _ReplyBoxState extends State<ReplyBox> {
   final TextEditingController controller = TextEditingController();
-   bool isReplying = false;
+  bool isReplying = false;
 
-   @override 
-   Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextButton(
           onPressed: () {
-            setState((){
+            setState(() {
               isReplying = !isReplying;
             });
           },
           child: const Text('Reply'),
         ),
 
-   if(isReplying)
-
+        if (isReplying)
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Column(
               children: [
-
                 TextField(
                   controller: controller,
-                  decoration: const InputDecoration(
-                    hintText: "Write a reply",
-                  ),
+                  decoration: const InputDecoration(hintText: "Write a reply"),
                 ),
 
                 ElevatedButton(
                   onPressed: () {
-
-                    if(controller.text.trim().isEmpty) return;
+                    if (controller.text.trim().isEmpty) return;
 
                     Provider.of<CommentProvide>(
                       context,
@@ -62,15 +57,12 @@ class _ReplyBoxState extends State<ReplyBox> {
                     setState(() {
                       isReplying = false;
                     });
-
                   },
                   child: const Text("Send"),
-                )
-
+                ),
               ],
             ),
-          )
-
+          ),
       ],
     );
   }

@@ -42,4 +42,20 @@ class dummyServices {
       ),
     ];
   }
+
+  static CommentModel randomComment() {
+    final id = DateTime.now().millisecondsSinceEpoch;
+
+    final parentIds = [null, 1, 2, 3, 4, 5];
+
+    parentIds.shuffle();
+
+    return CommentModel(
+      id: id,
+      parentId: parentIds.first,
+      author: "Ankit",
+      message: "New Comment $id",
+      createdAt: DateTime.now(),
+    );
+  }
 }

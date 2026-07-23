@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/comment.dart';
-
-import 'reply.dart';
 import 'package:provider/provider.dart';
+
+import '../models/comment.dart';
 import '../providers/comment.dart';
+import 'reply.dart';
 
 class CommnetTitle extends StatelessWidget {
   final CommentModel comment;
@@ -13,6 +13,11 @@ class CommnetTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CommentProvide>(context);
+    if (!provider.matchesSearch(comment)) {
+      return const SizedBox.shrink();
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: level * 20.0),
       child: Column(
@@ -21,7 +26,7 @@ class CommnetTitle extends StatelessWidget {
           Card(
             child: ListTile(
               leading: comment.children.isEmpty
-                  ? const SizedBox(height: 5)
+                  ? const SizedBox(width: 24)
                   : IconButton(
                       icon: Icon(
                         comment.isExpanded
@@ -29,23 +34,18 @@ class CommnetTitle extends StatelessWidget {
                             : Icons.keyboard_arrow_right,
                       ),
                       onPressed: () {
-                        Provider.of<CommentProvide>(
-                          context,
-                          listen: false,
-                        ).toggleExpand(comment);
+                        provider.toggleExpand(comment);
                       },
                     ),
               title: Text(comment.author),
               subtitle: Text(comment.message),
             ),
           ),
-          ReplyBox(
-  comment: comment,
-),
-          if (comment.isExpanded)
-            ...comment.children.map(
-              (child) => CommnetTitle(comment: child, level: level + 1),
-            ),
+          ReplyBox(comment: comment),
+          if (comment.isExpanded || provider.searchQuery.isNotEmpty)
+            ...comment.children
+                .where((child) => provider.matchesSearch(child))
+                .map((child) => CommnetTitle(comment: child, level: level + 1)),
         ],
       ),
     );
