@@ -32,8 +32,8 @@ class CommentProvide extends ChangeNotifier {
             parent.children.add(comment);
 
           }else{
-            _pendingChildren.putIfAbsent(comment.parentId!, () => []).add(comment);
-            _pendingChildren[comment.parentId!]!..add(comment);
+            _pendingChildren.putIfAbsent(comment.parentId!, () => []);
+            _pendingChildren[comment.parentId!]!.add(comment);
           }
         }
 
