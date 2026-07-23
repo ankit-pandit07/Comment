@@ -15,6 +15,23 @@ void toggleExpand(CommentModel comment) {
   notifyListeners();
 }
 
+void addReply({
+  required CommentModel parent,
+  required String message,
+}) {
+  final reply = CommentModel(
+    id: DateTime.now().millisecondsSinceEpoch,
+    parentId: parent.id,
+    author: "You",
+    message: message,
+    createdAt: DateTime.now(),
+  );
+
+  parent.children.add(reply);
+
+  notifyListeners();
+}
+
   void buildTree(List<CommentModel> comments) {
    _rootComments.clear();
     _commentMap.clear();

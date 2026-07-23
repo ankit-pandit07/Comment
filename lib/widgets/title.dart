@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/comment.dart';
 
+import 'reply.dart';
 import 'package:provider/provider.dart';
 import '../providers/comment.dart';
 
@@ -20,7 +21,7 @@ class CommnetTitle extends StatelessWidget {
           Card(
             child: ListTile(
               leading: comment.children.isEmpty
-                  ? const SizedBox(width: 24)
+                  ? const SizedBox(height: 5)
                   : IconButton(
                       icon: Icon(
                         comment.isExpanded
@@ -38,6 +39,9 @@ class CommnetTitle extends StatelessWidget {
               subtitle: Text(comment.message),
             ),
           ),
+          ReplyBox(
+  comment: comment,
+),
           if (comment.isExpanded)
             ...comment.children.map(
               (child) => CommnetTitle(comment: child, level: level + 1),
