@@ -3,15 +3,31 @@ import 'package:provider/provider.dart';
 
 import 'providers/comment.dart';
 import 'screens/home.dart';
+import 'providers/connectivity.dart';
 
 void main() {
   runApp(
+    MultiProvider(
+  providers: [
     ChangeNotifierProvider(
       create: (_) => CommentProvide(),
-      child: const MyApp(),
     ),
+    ChangeNotifierProvider(
+      create: (_) => ConnectivityProvider(),
+    ),
+  ],
+  child: const MyApp(),
+)
   );
 }
+// void main() {
+//   runApp(
+//     ChangeNotifierProvider(
+//       create: (_) => CommentProvide(),
+//       child: const MyApp(),
+//     ), 
+//   );
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
