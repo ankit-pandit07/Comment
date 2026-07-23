@@ -6,6 +6,7 @@ class CommentModel {
   final DateTime createdAt;
 
   List<CommentModel> children;
+  bool isExpanded = true;
 
   CommentModel({
     required this.id,

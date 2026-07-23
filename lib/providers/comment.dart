@@ -10,7 +10,10 @@ class CommentProvide extends ChangeNotifier {
 
   List <CommentModel> get rootComments => _rootComments;
 
-
+void toggleExpand(CommentModel comment) {
+  comment.isExpanded = !comment.isExpanded;
+  notifyListeners();
+}
 
   void buildTree(List<CommentModel> comments) {
    _rootComments.clear();
